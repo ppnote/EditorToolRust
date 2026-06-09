@@ -5,6 +5,9 @@ on:
   push:
     branches: [main, master]
 
+permissions:
+  contents: write
+
 jobs:
   build-macos:
     runs-on: macos-14
@@ -33,3 +36,22 @@ jobs:
           name: EditorTool-macos
           path: EditorTool-macos.zip
           if-no-files-found: error
+
+      - name: Publish Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: macos-${{ github.run_number }}
+          name: macOS 构建 #${{ github.run_number }}
+          body: |
+            自动构建的 macOS 版本。
+
+            下载 **EditorTool-macos.zip** 并解压：
+            - `editor-tool-rust` — 终端可执行文件
+            - `EditorTool.app` — 双击运行的应用程序
+
+            ```bash
+            chmod +x editor-tool-rust
+            ./editor-tool-rust
+            ```
+          files: EditorTool-macos.zip
+          make_latest: true
