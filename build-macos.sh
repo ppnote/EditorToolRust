@@ -15,7 +15,9 @@ rm -rf dist
 mkdir -p "$MACOS"
 
 cp "$BIN" "$MACOS/editor-tool-rust"
+cp "$BIN" "dist/editor-tool-rust"
 chmod +x "$MACOS/editor-tool-rust"
+chmod +x "dist/editor-tool-rust"
 
 cat > "$CONTENTS/Info.plist" <<'EOF'
 <?xml version="1.0" encoding="UTF-8"?>

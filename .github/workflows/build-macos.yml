@@ -22,9 +22,14 @@ jobs:
       - name: Package .app
         run: bash build-macos.sh
 
+      - name: Create zip
+        run: |
+          cd dist
+          zip -r ../EditorTool-macos.zip EditorTool.app editor-tool-rust
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: EditorTool-macos
-          path: dist/EditorTool.app
+          path: EditorTool-macos.zip
           if-no-files-found: error

@@ -12,6 +12,8 @@
 
 - [Rust](https://www.rust-lang.org/tools/install) 1.75+（stable）
 
+在仓库根目录打开终端，直接执行以下命令（无需 `cd`）。
+
 ## 本地运行
 
 ```bash
@@ -32,11 +34,31 @@ bash build-macos.sh
 open dist/EditorTool.app
 ```
 
-## GitHub Actions
+## GitHub Actions 下载
 
-推送到 `main` 或 `master` 后，Actions 会自动构建 macOS 版 `EditorTool.app`，可在 Artifacts 中下载。
+构建成功后，可执行文件**不会出现在仓库 Code 页面**，需要到 Actions 里下载 Artifacts。
 
-也可在 Actions 页面手动运行 **Build macOS** 工作流。
+以 [Build macOS #2](https://github.com/ppnote/EditorToolRust/actions/runs/27210897344) 为例：
+
+1. 打开 Actions 运行记录页面
+2. 滚动到页面底部 **Artifacts** 区域
+3. 点击 **EditorTool-macos** 下载 zip（约 2.5 MB）
+4. 解压后得到：
+   - `editor-tool-rust` — 独立可执行文件（终端运行）
+   - `EditorTool.app` — macOS 应用程序（双击运行）
+
+终端运行：
+
+```bash
+chmod +x editor-tool-rust
+./editor-tool-rust
+```
+
+或双击 `EditorTool.app`。
+
+> macOS 首次打开若提示「无法验证开发者」，请在 **系统设置 → 隐私与安全性** 中允许运行。
+
+推送到 `main` 或 `master` 后会自动构建；也可在 Actions 页面手动运行 **Build macOS**。
 
 ## 推送至 GitHub
 
