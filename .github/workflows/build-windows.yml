@@ -5,6 +5,9 @@ on:
   push:
     branches: [main, master]
 
+permissions:
+  contents: write
+
 jobs:
   build-windows:
     runs-on: windows-latest
@@ -19,9 +22,26 @@ jobs:
       - name: Build release
         run: cargo build --release
 
+      - name: Create zip
+        shell: pwsh
+        run: |
+          Compress-Archive -Path target/release/editor-tool-rust.exe -DestinationPath EditorTool-windows.zip -Force
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: EditorTool-windows
-          path: target/release/editor-tool-rust.exe
+          path: EditorTool-windows.zip
           if-no-files-found: error
+
+      - name: Publish Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: windows-${{ github.run_number }}
+          name: Windows 构建 #${{ github.run_number }}
+          body: |
+            自动构建的 Windows 版本。
+
+            下载 **EditorTool-windows.zip** 并解压，运行 `editor-tool-rust.exe` 即可。
+          files: EditorTool-windows.zip
+          make_latest: true

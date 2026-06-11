@@ -34,40 +34,41 @@ bash build-macos.sh
 open dist/EditorTool.app
 ```
 
-## 下载 macOS 版本
+## 下载编译版本
 
-编译结果**不会出现在 Code 页面**，请从下面两种方式下载。
+编译结果**不会出现在 Code 页面**，请从 **Releases** 或 **Actions → Artifacts** 下载。
 
-### 方式一：Releases（推荐，最直观）
+### Releases（推荐）
 
-打开 [Releases 页面](https://github.com/ppnote/EditorToolRust/releases)，下载最新的 **EditorTool-macos.zip**。
+打开 [Releases 页面](https://github.com/ppnote/EditorToolRust/releases)：
 
-> 需要仓库推送包含 Release 发布的 workflow 后才会出现。若还没有 Release，请用方式二。
+| 构建工作流 | Release 名称 | 下载文件 |
+|-----------|-------------|---------|
+| Build Windows | Windows 构建 #N | `EditorTool-windows.zip` → `editor-tool-rust.exe` |
+| Build macOS | macOS 构建 #N | `EditorTool-macos.zip` → `editor-tool-rust` + `EditorTool.app` |
 
-### 方式二：Actions → Artifacts
+> 需要推送包含 Release 发布的 workflow 后才会出现对应 Release。
 
-以 [Build #3](https://github.com/ppnote/EditorToolRust/actions/runs/27211148569) 为例（已构建成功，4.89 MB）：
+### Actions → Artifacts（备用）
 
-1. **必须先登录 GitHub**（未登录看不到下载按钮）
-2. 打开 Actions 运行页，**滚动到页面最底部**
-3. 找到 **Artifacts** 表格，点击 **EditorTool-macos** 下载 zip
-4. 解压后得到：
-   - `editor-tool-rust` — 独立可执行文件
-   - `EditorTool.app` — macOS 应用程序
+1. **必须先登录 GitHub**
+2. 打开对应 Actions 运行页，**滚动到页面最底部**
+3. 点击 Artifacts 中的 zip 下载
 
-终端运行：
+Windows 示例：[Build Windows #4](https://github.com/ppnote/EditorToolRust/actions/runs/27282395860) → **EditorTool-windows**（2.21 MB）
+
+macOS 示例：[Build macOS #3](https://github.com/ppnote/EditorToolRust/actions/runs/27211148569) → **EditorTool-macos**（4.89 MB）
+
+### macOS 运行说明
 
 ```bash
 chmod +x editor-tool-rust
 ./editor-tool-rust
 ```
 
-或双击 `EditorTool.app`。
+或双击 `EditorTool.app`。首次打开若提示「无法验证开发者」，请在 **系统设置 → 隐私与安全性** 中允许运行。
 
-> 这是 **Mac 程序**，不能在 Windows 上运行。  
-> macOS 首次打开若提示「无法验证开发者」，请在 **系统设置 → 隐私与安全性** 中允许运行。
-
-推送到 `main` 后会自动构建并发布 Release；也可在 Actions 页面手动运行 **Build macOS**。
+推送到 `main` 后会自动构建；也可在 Actions 页面手动运行 **Build Windows** / **Build macOS**。
 
 ## 推送至 GitHub
 
